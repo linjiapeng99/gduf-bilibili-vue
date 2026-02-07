@@ -2,7 +2,7 @@
   <div class="user-login-form-container">
     <div class="user-login-form">
       <div class="user-login-form-title">
-        密码登录--Home
+        密码登录--UserLogin
       </div>
       <div class="user-login-form-item">
         <div class="user-login-form-item-title">
@@ -18,12 +18,14 @@
         <div class="forgetPwd">忘记密码?</div>
       </div>
       <div class="usere-login-form-footer">
-        <button @click="register(account,password)" class="user-login-form-footer-btn">
+<!--        <button @click="register(account,password)" class="user-login-form-footer-btn">
           注册
         </button>
         <button @click="login(account,password)" class="user-login-form-footer-btn">
           登录
-        </button>
+        </button>-->
+        <el-button type="primary" class="user-login-form-footer-btn">注册</el-button>
+        <el-button type="primary" class="user-login-form-footer-btn">登录</el-button>
       </div>
     </div>
   </div>
@@ -31,7 +33,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'UserLogin',
   props: {
     msg: String
   },
@@ -146,7 +148,9 @@ export default {
     .usere-login-form-footer {
       display: flex;
       justify-content: space-between;
-
+      .user-login-form-footer-btn{
+        width: 100%;
+      }
     }
   }
 }
