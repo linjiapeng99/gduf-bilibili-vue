@@ -23,7 +23,6 @@ export default {
       try{
         await this.userLogin(this.account, this.password);
         location.reload();
-        window.alert('登录成功')
       }catch (e){
         window.alert('登录失败')
       }

@@ -2,9 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import UserLogin from "@/components/UserLogin.vue";
 import MainPage from "@/components/MainPage.vue";
-import MySpaceHome from "@/components/MySpaceHome.vue";
-import MySpacePost from "@/components/MySpacePost.vue";
+import MySpaceHome from "@/components/mySpace/MySpaceHome.vue";
+import MySpacePost from "@/components/mySpace/MySpacePost.vue";
 import PostContent from "@/components/PostContent.vue";
+import VideoDetail from "@/components/VideoDetail.vue";
+import MySpaceContent from "@/components/mySpace/MySpaceContent.vue";
+import MySpaceInfo from "@/components/mySpace/MySpaceInfo.vue";
+import MySpaceCollection from "@/components/mySpace/MySpaceCollection.vue";
+import MySpaceFollowing from "@/components/mySpace/MySpaceFollowing.vue";
 
 Vue.use(VueRouter)
 
@@ -20,27 +25,47 @@ const routes = [
         component: UserLogin
     },
     {
-        // 首页
+        //个人中心
         path: '/mySpace',
-        component: MainPage,
         redirect:'/mySpace/home',
+        component: MySpaceContent,
         children:[
             {
                 //个人中心主页
-                path:'/home',
+                path:'home',
                 component:MySpaceHome
             },
             {
-                //注册登录页面
-                path:'/post',
+                //个人中心我的投稿
+                path:'post',
                 component:MySpacePost
-            }
+            },
+            {
+                // 个人中心-个人信息
+                path: 'info',
+                component: MySpaceInfo
+            },
+            {
+                // 个人中心-我的收藏
+                path: 'collection',
+                component: MySpaceCollection
+            },
+            {
+                // 个人中心-我的关注
+                path: 'following',
+                component: MySpaceFollowing
+            },
         ]
     },
     {
-        // 首页
+        // 视频投稿
         path: '/postContent',
         component: PostContent,
+    },
+    {
+        // 视频详情
+        path:'/videoDetail',
+        component:VideoDetail,
     },
 ]
 

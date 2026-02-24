@@ -21,5 +21,24 @@ export default {
     },
     async logout(){
         return await httpRequest.delete('/refresh-tokens');
+    },
+    //添加用户关注
+    async addUserFollowings(params){
+        return await httpRequest.post('/user-followings', params);
+    },
+
+    //获取用户关注
+    async getUserFollowings(){
+        return await httpRequest.get('/user-followings');
+    },
+
+    //更新用户基本信息
+    async updateUserInfo(params){
+        return await httpRequest.put('/user-infos',params);
+    },
+
+    //使用elasticsearch分页查询用户列表
+    async pageListUsersByEs(params) {
+        return await httpRequest.get('/search-users', {params});
     }
 }

@@ -2,7 +2,7 @@
   <div class="user-login-form-container">
     <div class="user-login-form">
       <div class="user-login-form-title">
-        密码登录--UserLogin
+        密码登录-UserLogin
       </div>
       <div class="user-login-form-item">
         <div class="user-login-form-item-title">
@@ -15,92 +15,125 @@
           密码
         </div>
         <input placeholder="请输入密码" type="password" v-model="password">
-        <div class="forgetPwd">忘记密码?</div>
+        <div class="forgetPwd">
+          忘记密码？
+        </div>
       </div>
-      <div class="usere-login-form-footer">
-<!--        <button @click="register(account,password)" class="user-login-form-footer-btn">
+      <div class="user-login-form-footer">
+<!--        <button v-on:click="register(account, password)" class="user-login-form-footer-btn">-->
+<!--          注册-->
+<!--        </button>-->
+<!--        <button @click="login" class="user-login-form-footer-btn">-->
+<!--          登录-->
+<!--        </button>-->
+        <el-button type="primary" class="user-login-form-footer-btn"
+                   @click="register">
           注册
-        </button>
-        <button @click="login(account,password)" class="user-login-form-footer-btn">
+        </el-button>
+        <el-button type="primary" class="user-login-form-footer-btn"
+                   @click="login">
           登录
-        </button>-->
-        <el-button type="primary" class="user-login-form-footer-btn">注册</el-button>
-        <el-button type="primary" class="user-login-form-footer-btn">登录</el-button>
+        </el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import userUtils from "@/utils/userUtils";
+import routerUtils from "@/utils/routerUtils";
+
 export default {
   name: 'UserLogin',
+  mixins:[userUtils, routerUtils],
   props: {
     msg: String
   },
-  data() {
+  data(){
     return {
-      account: '',
-      password: ''
+      account:'',
+      password:''
     }
   },
-  methods: {
-    register(account, password) {
-      console.log("account", account);
-      console.log("password", password);
-      this.account++;
-    },
-    login() {
-      if (this.isUserLoggedIn) {
-        console.log('用户已经登录');
-      } else {
-        console.log('用户尚未登录');
+
+  methods:{
+
+    async register(){
+      try {
+        await this.userRegister(this.account,this.password);
+        window.alert('注册成功，请点击登录按钮进行登录');
+      }catch (error){
+        window.alert('注册失败');
       }
-      this.$destroy();
-    }
+    },
+
+    async login(){
+      try{
+        await this.userLogin(this.account, this.password);
+        await this.jumpToPath('/');
+      }catch (e){
+        window.alert('登录失败');
+      }
+
+    },
+
   },
-  beforeCreate() {
-    console.log('创建前');
-  },
-  created() {
-    console.log('创建 ');
-  },
-  beforeMount() {
-    console.log('挂载前');
-  },
-  mounted() {
-    console.log('挂载')
-  },
-  beforeUpdate() {
-    console.log('更新前：'+this.account)
-  },
-  updated() {
-    console.log('更新后：'+this.account)
-  },
-  beforeDestroy() {
-    console.log('销毁前')
-  },
-  destroyed() {
-    console.log('销毁')
-  },
-  computed: {
-    isUserLoggedIn() {
+
+  computed:{
+
+    isUserLoggedIn(){
       return localStorage.getItem('token');
     }
+  },
+
+  beforeCreate() {
+    console.log('beforeCreate');
+  },
+
+  created() {
+    console.log('created');
+  },
+
+  beforeMount() {
+    console.log('beforeMount');
+  },
+
+  mounted() {
+    console.log('mounted');
+  },
+
+  beforeUpdate() {
+    console.log(this.account);
+    console.log('beforeUpdate');
+  },
+
+  updated() {
+    console.log(this.account);
+    console.log('updated');
+  },
+
+  beforeDestroy() {
+    console.log(this.account);
+    console.log('beforeDestroy');
+  },
+
+  destroyed() {
+    console.log('destroyed');
   }
+
 }
 </script>
 
-<!-- scoped的意思是这个样式只对当前这个组件有用 -->
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-.user-login-form-container {
+
+.user-login-form-container{
   margin-top: 10%;
   margin-left: 20%;
   margin-right: 20%;
-  background-color: #f3f3f3;
+  background-color: #ececec;
   display: flex;
-  /*垂直居中*/
   align-items: center;
-  /*水平居中*/
   justify-content: center;
   border-radius: 10px;
 
@@ -109,14 +142,14 @@ export default {
     display: flex;
     flex-direction: column;
 
-    .user-login-form-title {
+    .user-login-form-title{
       font-size: 24px;
       text-align: center;
       margin-bottom: 40px;
       font-weight: bold;
     }
 
-    .user-login-form-item {
+    .user-login-form-item{
       display: flex;
       font-size: 20px;
       margin-bottom: 20px;
@@ -126,31 +159,34 @@ export default {
       border-radius: 5px;
       padding: 6px;
 
-      .user-login-form-item-title {
+      .user-login-form-item-title{
         margin-right: 10px;
         margin-bottom: 5px;
       }
 
-      input {
+      input{
         font-size: 18px;
         margin-right: 10px;
         border: none;
+        outline: none;
       }
 
-      .forgetPwd {
+      .forgetPwd{
         font-size: 16px;
-        color: #4c7bb6;
+        color: dodgerblue;
         font-weight: bold;
         cursor: pointer;
       }
+
     }
 
-    .usere-login-form-footer {
+    .user-login-form-footer{
       display: flex;
       justify-content: space-between;
       .user-login-form-footer-btn{
         width: 100%;
       }
+
     }
   }
 }

@@ -1,15 +1,20 @@
 <script>
-import router from "@/router";
 import videoApi from "@/api/videoApi";
 
 export default {
   name: "MainPageContent",
   methods: {
-    router() {
-      return router
-    },
-    jumpToVideoDetail(){
-
+    jumpToVideoDetail(video){
+      if(video){
+        this.$router.push({
+          path:'videoDetail',
+          query:{
+            videoId:video.id
+          }
+        });
+      }else{
+        this.$router.push('/videoDetail');
+      }
     },
     pageListVideos($state){
       let params = {
@@ -194,7 +199,7 @@ export default {
         }
       ],
       videos:[
-        {
+        /*{
           id:1,
           title:'title1',
           thumbnail:require('@/assets/banner/1.jpg'),
@@ -265,7 +270,7 @@ export default {
           createTime: '2023-12-18 10:30:42',
           danmuCount:10,
           viewCount:40
-        }
+        }*/
       ],
       infiniteId:1,
       currentPage:1
@@ -304,13 +309,16 @@ export default {
       <div class="carousel-contain">
         <el-carousel :interval="5000" arrow="always" class="carousel">
           <el-carousel-item v-for="(video,index) in recommendedVideos" :key="index">
-            <img :src=(video.thumbnail) :alt="video.id" style="width: 100%;height: 100%"
+            <img :src="video.thumbnail"
+                 :alt="video.id"
+                 style="width: 100%;height: 100%"
             @click="jumpToVideoDetail(video)">
           </el-carousel-item>
         </el-carousel>
       </div>
 
-      <div class="video-container" v-for="video in videos" :key="video.id" @click="jumpToVideoDetail(video)">
+      <div class="video-container" v-for="video in videos" :key="video.id"
+           @click="jumpToVideoDetail(video)">
         <img :src="video.thumbnail" class="thumbnail" alt="">
         <span>
           {{video.title}}

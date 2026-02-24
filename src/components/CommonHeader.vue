@@ -37,7 +37,11 @@ export default {
       }
     },
     jumpToPath(path){
-      this.$router.push(path);
+      if(this.$route.path !== path){
+        this.$router.push(path);
+      }else{
+        location.reload();
+      }
     },
     searchContent(){
 

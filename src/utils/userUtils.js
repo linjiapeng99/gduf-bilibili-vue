@@ -10,7 +10,6 @@ export default {
         };
     },
     methods: {
-
         //用户密码rsa加密
         encryptPassword(password, publicKey) {
             const encryptStr = new JSEncrypt();
