@@ -93,7 +93,7 @@ export default {
     },
 
     async initPlayer(){
-      const videoUrl = 'http://localhost:8080/video-slices?url=' + this.videoDetail.url;
+      const videoUrl = 'http://127.0.0.1:8080/video-slices?url=' + this.videoDetail.url;
       const danmuList = await this.getDanmus();
       if(danmuList && danmuList.length > 0){
         danmuList.forEach(item =>{
@@ -150,7 +150,7 @@ export default {
     },
 
     initWebsocket(){
-      const url = 'ws://localhost:8080/imserver/' + localStorage.getItem('token');
+      const url = 'ws://127.0.0.1:8080/imserver/' + localStorage.getItem('token');
       console.log(url);
       this.ws = new WebSocket(url);
       //接收后端传来的消息
@@ -215,7 +215,7 @@ export default {
     async getVideoCoins(){
       let response = await videoApi.getVideoCoins(this.$route.query.videoId);
       this.coinCount = response.data.count !== null ? response.data.count:this.coinCount;
-      this.hasCoin = response.data.hasCoin;
+      this.hasCoin = response.data.coin;
     },
 
     async getVideoCollections(){
