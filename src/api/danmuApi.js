@@ -10,7 +10,7 @@ export default {
                 endTime:endTime
             }
         };
-        return await httpRequest.get('danmus', params);
+        return await httpRequest.get('/danmu-service/danmus', params);
     }
 
 }

@@ -7,7 +7,7 @@ export default {
         let config = {
             params:{searchTxt:searchTxt}
         }
-        return await httpRequest.get('/search-counts',config);
+        return await httpRequest.get('/video-service/search-counts',config);
     },
 
 }

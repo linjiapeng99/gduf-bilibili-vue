@@ -93,7 +93,7 @@ export default {
     },
 
     async initPlayer(){
-      const videoUrl = 'http://127.0.0.1:8080/video-slices?url=' + this.videoDetail.url;
+      const videoUrl = 'http://127.0.0.1:8080/video-service/video-slices?url=' + this.videoDetail.url;
       const danmuList = await this.getDanmus();
       if(danmuList && danmuList.length > 0){
         danmuList.forEach(item =>{
@@ -152,7 +152,13 @@ export default {
     initWebsocket(){
       const url = 'ws://127.0.0.1:8080/imserver/' + localStorage.getItem('token');
       console.log(url);
+
       this.ws = new WebSocket(url);
+      this.ws.onopen = () => console.log('✅ 真正连接成功！');
+
+      this.ws.onclose = (e) => console.log('❌ 关闭了:', e.code, e.reason);
+
+      this.ws.onerror = (err) => console.error('💥 错误:', err);
       //接收后端传来的消息
       this.ws.onmessage = (event) =>{
         const msgObj = JSON.parse(event.data);
